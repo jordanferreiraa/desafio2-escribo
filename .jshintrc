@@ -1,0 +1,13 @@
+{
+  "esversion": 6,
+  "node": true,
+  "browser": false,
+  "strict": false,
+  "globals": {
+    "express": true,
+    "bodyParser": true,
+    "jwt": true,
+    "uuidv4": true
+  },
+  "unused": false
+}
