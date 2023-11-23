@@ -72,7 +72,7 @@ app.post('/signin', (req, res) => {
   return res.json({
     id: user.id,
     data_criacao: user.data_criacao,
-    data_atuzalizacao: user.data_atuzalizacao,
+    data_atualizacao: user.data_atualizacao,
     ultimo_login: user.ultimo_login,
     token: user.token
   });
@@ -87,7 +87,7 @@ app.get('/user/:email', (req, res) => {
   const user = users.find(user => user.email === email);
 
   if (!user) {
-    return res.status(404).json({ error: 'Não autorizadooo' });
+    return res.status(404).json({ error: 'Não autorizado' });
   }
 
   // Verifica se o token no cabeçalho é válido
@@ -95,10 +95,11 @@ app.get('/user/:email', (req, res) => {
     if (err) {
       return res.status(401).json({ error: 'Token inválido' });
     }
-    
-    // if (decoded.id !== user.id) {
-    //   return res.status(401).json({ error: 'Não autorizado', decoded: decoded.id, user: user.id });
-    // }
+
+  // Verifica se o token do usuário é igual ao token do cabeçalho
+  if (token !== user.token) {
+    return res.status(401).json({ error: 'Não autorizado' });
+  }
 
     return res.json(user);
   });
