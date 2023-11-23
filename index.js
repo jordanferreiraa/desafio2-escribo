@@ -95,7 +95,11 @@ app.get('/user/:email', (req, res) => {
     if (err) {
       return res.status(401).json({ error: 'Token inválido' });
     }
-    
+
+  // Verifica se o token do usuário é igual ao token do cabeçalho
+  if (token !== user.token) {
+    return res.status(401).json({ error: 'Não autorizado' });
+  }
 
     return res.json(user);
   });
